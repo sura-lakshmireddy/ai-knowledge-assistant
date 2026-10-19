@@ -207,4 +207,8 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ai_knowledge_assistant')
   .then(() => app.listen(PORT, () => console.log(`✅ MongoDB connected. Open http://localhost:${PORT}`)))
-  .catch(e => { console.error('❌ MongoDB connection failed:', e.message); process.exit(1); });
+  .catch(e => {
+    console.error('❌ MongoDB connection failed:', e.message);
+    console.error('Check MONGO_URI, the Atlas database user credentials, and Atlas Network Access. For Render, allow the service IP addresses in Atlas; 0.0.0.0/0 is a less secure temporary option.');
+    process.exit(1);
+  });
