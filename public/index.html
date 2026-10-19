@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyLamp – Personal AI Knowledge Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- AUTH -->
+<section id="auth">
+  <div class="auth-card">
+    <h1>StudyLamp</h1>
+    <p class="tag">Upload your notes. Learn from them. Test yourself. Earn points.</p>
+    <div class="tabs"><button id="tabLogin" class="active">Log in</button><button id="tabReg">Create account</button></div>
+    <form id="authForm">
+      <input id="aName" placeholder="Your name" autocomplete="name" hidden>
+      <input id="aEmail" type="email" placeholder="Email" required autocomplete="email">
+      <input id="aPass" type="password" placeholder="Password (6+ characters)" required minlength="6" autocomplete="current-password">
+      <button class="primary" id="authBtn">Log in</button>
+      <p class="err" id="authErr"></p>
+    </form>
+  </div>
+</section>
+
+<!-- APP -->
+<div id="app" hidden>
+  <aside>
+    <div class="brand">StudyLamp</div>
+    <div class="me">
+      <div class="who"><b id="uName"></b><button class="link" id="logout">Log out</button></div>
+      <div class="level"><span>Level <b id="uLevel">1</b></span><span><b id="uPoints">0</b> pts</span></div>
+      <div class="bar"><i id="uBar"></i></div>
+      <div id="uBadges" class="badges"></div>
+    </div>
+    <label class="upload">
+      <input type="file" id="fileIn" accept=".pdf,.docx,.txt,.md,.csv,.html" hidden>
+      <span id="upLabel">+ Upload study material</span>
+    </label>
+    <h3>My documents</h3>
+    <ul id="docs"></ul>
+    <h3>Leaderboard</h3>
+    <ol id="board"></ol>
+  </aside>
+
+  <main>
+    <nav class="views">
+      <button data-v="chat" class="active">Learn &amp; chat</button>
+      <button data-v="test">Mock test</button>
+      <span id="current" class="current">No document selected – chatting freely</span>
+    </nav>
+
+    <section id="chat" class="view">
+      <div class="modes">
+        <button data-m="chat" class="active">Ask</button>
+        <button data-m="teach">Teach me</button>
+        <button data-m="keypoints">Key points</button>
+        <button data-m="bullets">Bullet summary</button>
+      </div>
+      <div id="log" class="log"><div class="empty">Select a document on the left and choose a mode, or just ask anything.</div></div>
+      <form id="chatForm"><input id="msg" placeholder="Type your question or topic…" autocomplete="off"><button class="primary">Send</button></form>
+    </section>
+
+    <section id="test" class="view" hidden>
+      <div id="testSetup" class="setup">
+        <h2>Create a mock test</h2>
+        <p>Pick a document first, then set up your test.</p>
+        <div class="row">
+          <label>Questions<select id="tCount"><option>5</option><option>10</option><option>15</option></select></label>
+          <label>Difficulty<select id="tDiff"><option>easy</option><option selected>medium</option><option>hard</option></select></label>
+        </div>
+        <input id="tTopic" placeholder="Topic (optional)">
+        <button class="primary" id="tStart">Generate test</button>
+        <p class="err" id="tErr"></p>
+      </div>
+      <div id="testRun" hidden></div>
+      <div id="testResult" hidden></div>
+    </section>
+  </main>
+</div>
+
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
